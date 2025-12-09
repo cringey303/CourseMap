@@ -4,7 +4,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 // COLORS
 import { useTheme } from '@/components/ThemeContext';
@@ -84,8 +85,10 @@ export default function UploadScreen() {
         }
     };
 
+    const insets = useSafeAreaInsets();
+
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top', 'left', 'right']}>
             <View style={styles.header}>
                 <Text style={[styles.title, { color: colors.text }]}>Upload Footage</Text>
                 <Text style={[styles.subtitle, { color: colors.icon }]}>Share course footage with others</Text>
@@ -127,7 +130,7 @@ export default function UploadScreen() {
             </View>
 
             {/* FOOTER ACTION */}
-            <View style={styles.footer}>
+            <View style={[styles.footer, { paddingBottom: 60 + insets.bottom }]}>
                 {uploading ? (
                     <ActivityIndicator size="large" color={colors.navy} />
                 ) : (

@@ -5,7 +5,8 @@ import { Session } from '@supabase/supabase-js';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 type Submission = {
     id: string;
@@ -123,8 +124,10 @@ export default function ProfileScreen() {
         </View>
     );
 
+    const insets = useSafeAreaInsets();
+
     return (
-        <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}>
+        <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]} edges={['top', 'left', 'right']}>
             <FlatList
                 data={submissions}
                 keyExtractor={(item) => item.id}
@@ -136,7 +139,7 @@ export default function ProfileScreen() {
                         <Text style={[styles.emptyText, { color: colors.icon }]}>No submissions found.</Text>
                     </View>
                 }
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={[styles.listContent, { paddingBottom: 80 + insets.bottom }]}
                 renderItem={({ item }) => (
                     <View style={[styles.card, { backgroundColor: colors.card, shadowColor: isDark ? '#000' : '#000' }]}>
                         <View style={styles.cardLeft}>

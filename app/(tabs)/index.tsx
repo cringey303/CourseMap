@@ -4,16 +4,19 @@ import { HOCR_COURSE, calculateCourseLength } from '@/constants/CourseData';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 export default function DashboardScreen() {
     const { colors, isDark } = useTheme();
     const router = useRouter();
     const totalKm = calculateCourseLength(HOCR_COURSE);
 
+    const insets = useSafeAreaInsets();
+
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]} edges={['top', 'left', 'right']}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView contentContainerStyle={[styles.scrollContent, { paddingBottom: 80 + insets.bottom }]}>
                 {/* HEADER */}
                 <View style={styles.header}>
                     <View>

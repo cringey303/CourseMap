@@ -64,7 +64,7 @@ export default function MapScreen() {
             </MapView>
 
             {/* GLASSMORPHISM OVERLAY */}
-            <View style={[styles.overlayWrapper, { bottom: 30 + insets.bottom }]}>
+            <View style={[styles.overlayWrapper, { bottom: 80 + insets.bottom }]}>
                 <View style={[styles.glassCard, { backgroundColor: colors.glass, borderColor: isDark ? '#333' : 'rgba(255,255,255,0.4)' }]}>
                     <View style={styles.cardHeader}>
                         <View style={[styles.iconContainer, { backgroundColor: colors.navy }]}>

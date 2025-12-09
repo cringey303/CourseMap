@@ -1,54 +1,83 @@
-import { Tabs } from 'expo-router';
+import { useTheme } from '@/components/ThemeContext';
+import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { useTheme } from '@/components/ThemeContext';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-
 export default function TabLayout() {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: colors.tabIconSelected,
-        tabBarInactiveTintColor: colors.tabIconDefault,
-        tabBarStyle: {
-          backgroundColor: colors.background,
-          borderTopColor: colors.border,
+    <NativeTabs
+      // Native Tabs do not support swiping between screens. This is a platform limitation of standard native tabs.
+      iconColor={{
+        // CHANGE ANDROID ICON COLORS HERE
+        default: process.env.EXPO_OS === 'android'
+          ? (isDark ? '#CCCCCC' : '#000000') // Android: Light Gray (Dark Mode) vs Pure Black (Light Mode)
+          : colors.icon, // iOS
+        selected: process.env.EXPO_OS === 'android'
+          ? '#FFFFFF' // Android: Pure White Selected (Both Modes)
+          : colors.tint, // iOS
+      }}
+      labelStyle={{
+        default: {
+          color: process.env.EXPO_OS === 'android'
+            ? (isDark ? '#E5E5E5' : '#1A1A1A') // Android: Dark Mode vs Light Mode Default
+            : colors.icon
         },
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="map"
-        options={{
-          title: 'Map',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="upload"
-        options={{
-          title: 'Upload',
-          // Changed icon to 'arrow.up.doc.fill' as 'cloud.upload.fill' was reported missing on iOS
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="arrow.up.doc.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+        selected: {
+          color: process.env.EXPO_OS === 'android'
+            ? (isDark ? '#FFFFFF' : '#000000ff') // Android: Dark Mode vs Light Mode Selected
+            : colors.tint
+        },
+      }}
+      // CHANGE ANDROID ACTIVE INDICATOR (PILL) COLOR HERE
+      indicatorColor={process.env.EXPO_OS === 'android'
+        ? (isDark ? colors.navy : colors.navy)
+        : undefined}
+    >
+      <NativeTabs.Trigger name="index">
+        <Label>Home</Label>
+        <Icon sf="house.fill" drawable="@android:drawable/ic_dialog_info" />
+        <NativeTabs.Trigger.TabBar
+          backgroundColor={process.env.EXPO_OS === 'android'
+            ? (isDark ? colors.card : colors.background)
+            : undefined} // Allow native blur on iOS
+          // On iOS, blurEffect for Liquid Glass
+          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+        />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="map">
+        <Label>Map</Label>
+        <Icon sf="map.fill" drawable="@android:drawable/ic_dialog_map" />
+        <NativeTabs.Trigger.TabBar
+          backgroundColor={process.env.EXPO_OS === 'android'
+            ? (isDark ? colors.card : colors.background)
+            : undefined}
+          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+        />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="upload">
+        <Label>Upload</Label>
+        <Icon sf="plus.circle.fill" drawable="@android:drawable/ic_input_add" />
+        <NativeTabs.Trigger.TabBar
+          backgroundColor={process.env.EXPO_OS === 'android'
+            ? (isDark ? colors.card : colors.background)
+            : undefined}
+          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+        />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="profile">
+        <Label>Profile</Label>
+        <Icon sf="person.fill" drawable="@android:drawable/ic_lock_idle_lock" />
+        <NativeTabs.Trigger.TabBar
+          backgroundColor={process.env.EXPO_OS === 'android'
+            ? (isDark ? colors.card : colors.background)
+            : undefined}
+          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+        />
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 }
