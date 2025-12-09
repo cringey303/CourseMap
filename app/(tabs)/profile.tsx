@@ -87,11 +87,18 @@ export default function ProfileScreen() {
                 </View>
             </View>
 
+            <View style={[styles.avatarContainer]}>
+                <View style={[styles.avatar, { backgroundColor: colors.navy }]}>
+                    <IconSymbol name="person.fill" size={40} color="#FFF" />
+                </View>
+                <Text style={[styles.username, { color: colors.text }]}>Rower</Text>
+            </View>
+
             <View style={[styles.roleBadge, { backgroundColor: colors.navy }]}>
                 <Text style={styles.roleText}>{role}</Text>
             </View>
 
-            <View style={[styles.statsContainer, { backgroundColor: colors.card }]}>
+            <View style={[styles.statsContainer, { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }]}>
                 <View style={styles.statBlock}>
                     <Text style={[styles.statNumber, { color: colors.text }]}>{submissions.length}</Text>
                     <Text style={[styles.statLabel, { color: colors.icon }]}>Uploads</Text>
@@ -220,6 +227,22 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 10,
+    },
+    avatarContainer: {
+        alignItems: 'center',
+        marginBottom: 15,
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    username: {
+        fontSize: 20,
+        fontWeight: '700',
     },
     settingsRow: {
         flexDirection: 'row',

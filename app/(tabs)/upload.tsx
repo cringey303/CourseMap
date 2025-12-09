@@ -98,7 +98,7 @@ export default function UploadScreen() {
                         style={[styles.dropZone, { backgroundColor: colors.card, borderColor: colors.border }]}
                         onPress={pickVideo}
                     >
-                        <IconSymbol name="cloud.upload.fill" size={50} color={colors.navy} />
+                        <IconSymbol name="arrow.up.doc.fill" size={50} color={colors.navy} />
                         <Text style={[styles.dropText, { color: colors.text }]}>Tap to select file</Text>
                         <Text style={[styles.dropSubText, { color: colors.icon }]}>(Max 500MB)</Text>
                     </TouchableOpacity>
@@ -132,7 +132,7 @@ export default function UploadScreen() {
                     <ActivityIndicator size="large" color={colors.navy} />
                 ) : (
                     <TouchableOpacity
-                        style={[styles.uploadButton, !videoUri && styles.disabledButton, { backgroundColor: !videoUri ? colors.border : colors.navy }]}
+                        style={[styles.uploadButton, !videoUri && styles.disabledButton, { backgroundColor: !videoUri ? colors.border : colors.navy, borderWidth: 1, borderColor: colors.border }]}
                         onPress={handleUpload}
                         disabled={!videoUri}
                     >

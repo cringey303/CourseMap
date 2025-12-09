@@ -34,13 +34,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="upload"
-        options={{
-          title: 'Upload',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="cloud.upload.fill" color={color} />,
-        }}
-      />
+
       <Tabs.Screen
         name="profile"
         options={{

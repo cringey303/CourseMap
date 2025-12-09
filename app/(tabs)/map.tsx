@@ -1,31 +1,17 @@
 import { useTheme } from '@/components/ThemeContext';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { calculateCourseLength, HOCR_COURSE } from '@/constants/CourseData';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, Polyline, PROVIDER_DEFAULT } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Head of the Charles (HOCR) Course - Final Corrected Coordinates
-const HOCR_COURSE = [
-    { latitude: 42.3546, longitude: -71.1065 }, // Start: BU Boathouse
-    { latitude: 42.3562, longitude: -71.1128 },
-    { latitude: 42.3582, longitude: -71.1175 },
-    { latitude: 42.3605, longitude: -71.1185 },
-    { latitude: 42.3620, longitude: -71.1205 },
-    { latitude: 42.3635, longitude: -71.1235 }, // Weeks Footbridge
-    { latitude: 42.3655, longitude: -71.1265 }, // Anderson Bridge
-    { latitude: 42.3685, longitude: -71.1315 },
-    { latitude: 42.3705, longitude: -71.1370 }, // Eliot Bridge
-    { latitude: 42.3715, longitude: -71.1410 },
-    { latitude: 42.3735, longitude: -71.1460 },
-    { latitude: 42.3742, longitude: -71.1485 }, // Finish
-];
-
 export default function MapScreen() {
     const [location, setLocation] = useState<Location.LocationObject | null>(null);
     const insets = useSafeAreaInsets();
     const { colors, isDark } = useTheme();
+    const totalKm = calculateCourseLength(HOCR_COURSE);
 
     useEffect(() => {
         (async () => {
@@ -59,7 +45,7 @@ export default function MapScreen() {
                 <Polyline
                     key="hocr-polyline-v3-final"
                     coordinates={HOCR_COURSE}
-                    strokeColor={colors.navy}
+                    strokeColor={isDark ? '#FFA500' : colors.navy}
                     strokeWidth={4}
                     lineDashPattern={[1]}
                 />
@@ -92,7 +78,7 @@ export default function MapScreen() {
 
                     <View style={styles.cardStats}>
                         <View style={styles.statItem}>
-                            <Text style={[styles.statValue, { color: colors.text }]}>4.8km</Text>
+                            <Text style={[styles.statValue, { color: colors.text }]}>{totalKm}km</Text>
                             <Text style={[styles.statLabel, { color: colors.icon }]}>Distance</Text>
                         </View>
                         <View style={[styles.divider, { backgroundColor: colors.border }]} />
