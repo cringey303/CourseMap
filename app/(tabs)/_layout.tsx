@@ -34,7 +34,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
         }}
       />
-
+      <Tabs.Screen
+        name="upload"
+        options={{
+          title: 'Upload',
+          // Changed icon to 'arrow.up.doc.fill' as 'cloud.upload.fill' was reported missing on iOS
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="arrow.up.doc.fill" color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="profile"
         options={{
