@@ -38,11 +38,8 @@ export default function TabLayout() {
         <Label>Home</Label>
         <Icon sf="house.fill" drawable="@android:drawable/ic_dialog_info" />
         <NativeTabs.Trigger.TabBar
-          backgroundColor={process.env.EXPO_OS === 'android'
-            ? (isDark ? colors.card : colors.background)
-            : undefined} // Allow native blur on iOS
-          // On iOS, blurEffect for Liquid Glass
-          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+          // Use Chrome Material for Opaque-like look on iOS without explicit color glitch
+          blurEffect={isDark ? 'systemChromeMaterialDark' : 'systemChromeMaterial'}
         />
       </NativeTabs.Trigger>
 
@@ -50,10 +47,11 @@ export default function TabLayout() {
         <Label>Map</Label>
         <Icon sf="map.fill" drawable="@android:drawable/ic_dialog_map" />
         <NativeTabs.Trigger.TabBar
+          // Standard Blur for Map
+          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
           backgroundColor={process.env.EXPO_OS === 'android'
             ? (isDark ? colors.card : colors.background)
             : undefined}
-          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
         />
       </NativeTabs.Trigger>
 
@@ -61,10 +59,7 @@ export default function TabLayout() {
         <Label>Upload</Label>
         <Icon sf="plus.circle.fill" drawable="@android:drawable/ic_input_add" />
         <NativeTabs.Trigger.TabBar
-          backgroundColor={process.env.EXPO_OS === 'android'
-            ? (isDark ? colors.card : colors.background)
-            : undefined}
-          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+          blurEffect={isDark ? 'systemChromeMaterialDark' : 'systemChromeMaterial'}
         />
       </NativeTabs.Trigger>
 
@@ -72,10 +67,7 @@ export default function TabLayout() {
         <Label>Profile</Label>
         <Icon sf="person.fill" drawable="@android:drawable/ic_lock_idle_lock" />
         <NativeTabs.Trigger.TabBar
-          backgroundColor={process.env.EXPO_OS === 'android'
-            ? (isDark ? colors.card : colors.background)
-            : undefined}
-          blurEffect={isDark ? 'systemMaterialDark' : 'systemMaterialLight'}
+          blurEffect={isDark ? 'systemChromeMaterialDark' : 'systemChromeMaterial'}
         />
       </NativeTabs.Trigger>
     </NativeTabs>
